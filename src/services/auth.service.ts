@@ -9,7 +9,7 @@ export const registerUserService = asyncErrorHandler(
     const { email, firstName, lastName, password, confirmPassword } = req.body;
     // check password
     if (password !== confirmPassword) {
-      //throw error here
+      next(new Error("passwords do not match"));
     }
 
     const prevUser = await db("users").where({ email });
