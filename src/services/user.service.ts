@@ -5,11 +5,11 @@ import db from "../db/db.config";
 export const getUserByWalletIdService = asyncErrorHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const { walletId } = req.body;
-    const user = await db("users").where({ wallet_id: walletId });
+    const user = await db("users").where({ wallet_id: walletId }).first();
     if (!user) {
       //return an error
       return res.send("something went wrong");
     }
-    res.status(200).send(user[0].name);
+    res.status(200).send(user);
   }
 );

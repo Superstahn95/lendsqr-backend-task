@@ -3,11 +3,12 @@ import {
   fundOtherAccountController,
   fundSelfController,
 } from "../controllers/deposit.controller";
+import { isAuth } from "../middlewares/authMiddleware";
 
 const router = express.Router();
 
 //include authentication middleware
-router.post("/", fundSelfController);
-router.post("/funduser", fundOtherAccountController);
+router.post("/", isAuth, fundSelfController);
+router.post("/funduser", isAuth, fundOtherAccountController);
 
 export default router;

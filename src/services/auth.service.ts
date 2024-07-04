@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
 import db from "../db/db.config";
-import { User } from "../models/user.model";
+import { User } from "../interfaces";
 import asyncErrorHandler from "../utils/asyncErrorHandler";
 
 export const registerUserService = asyncErrorHandler(
@@ -51,6 +51,7 @@ export const loginService = asyncErrorHandler(
     }
     //generate random token using uuid
     const accessToken = uuidv4();
+    await db<User>("users").where({ email }).update({ token: accessToken });
     res.status(200).json({
       user: user,
       token: accessToken,

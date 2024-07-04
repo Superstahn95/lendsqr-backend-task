@@ -10,9 +10,13 @@ export const fundOtherAccountController = (
   req: AuthenticatedRequestBody<DepositRequest>,
   res: Response,
   next: NextFunction
-) => {};
+) => {
+  fundOtherAccountService(req, res, next);
+};
 export const fundSelfController = (
   req: AuthenticatedRequestBody<DepositRequest>,
   res: Response,
   next: NextFunction
-) => {};
+) => {
+  fundSelfService(req, res, next);
+};

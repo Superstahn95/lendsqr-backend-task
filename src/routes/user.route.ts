@@ -3,6 +3,6 @@ import { getUserByWalletIdController } from "../controllers/user.controller";
 
 const router = express.Router();
 
-router.post("/generateuser", getUserByWalletIdController);
+router.get("/", getUserByWalletIdController);
 
 export default router;

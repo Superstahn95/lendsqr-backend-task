@@ -10,10 +10,16 @@ export const fundSelfService = asyncErrorHandler(
     next: NextFunction
   ) => {
     const { amount } = req.body;
-    const newBalance = req.body.amount + amount;
-    await db<User>("users")
+    if (!req.user) {
+      return;
+    }
+    const newBalance = req.user?.balance + amount;
+    console.log(req.user?.id);
+    const check = await db<User>("users")
       .where({ id: req.user?.id })
       .update({ balance: newBalance });
+    const newUser = await db<User>("users").where({ id: req.user?.id }).first();
+    console.log(newUser);
     res.status(200).json({
       status: "success",
       message: "account funded successfully",
