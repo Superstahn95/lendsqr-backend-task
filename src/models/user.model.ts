@@ -5,9 +5,9 @@ interface User {
   first_name: string;
   last_name: string;
   email: string;
-  user_name: string;
   balance: number;
-  walletID: string;
+  wallet_id: string;
+  password: string;
 }
 
 const createUserTable = async (knex: Knex) => {
@@ -16,7 +16,8 @@ const createUserTable = async (knex: Knex) => {
     table.string("first_name").notNullable();
     table.string("last_name").notNullable();
     table.string("email").notNullable().unique();
-    table.string("user_name").notNullable().unique();
+    table.string("wallet_id").notNullable().unique();
+    table.string("password").notNullable();
     table.integer("balance").defaultTo(0);
     table.timestamps(true);
   });
