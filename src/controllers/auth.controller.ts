@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { registerUserService } from "../services/auth.service";
+import { registerUserService, loginService } from "../services/auth.service";
 
 export const registerUserController = (
   req: Request,
@@ -7,4 +7,12 @@ export const registerUserController = (
   next: NextFunction
 ) => {
   registerUserService(req, res, next);
+};
+
+export const loginController = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  loginService(req, res, next);
 };

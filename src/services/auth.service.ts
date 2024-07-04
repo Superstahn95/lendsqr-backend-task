@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import db from "../db/db.config";
 import { v4 as uuidv4 } from "uuid";
 import bcrypt from "bcryptjs";
+import db from "../db/db.config";
+import { User } from "../models/user.model";
 import asyncErrorHandler from "../utils/asyncErrorHandler";
 
 export const registerUserService = asyncErrorHandler(
@@ -39,19 +40,20 @@ export const registerUserService = asyncErrorHandler(
 export const loginService = asyncErrorHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
-    const users = await db("users").where({ email });
-    if (!users) {
+    const user = await db("users").where({ email }).first();
+    if (!user) {
       return res.send("no users found");
     }
-    const isPasswordMatch = await bcrypt.compare(password, users[0].password);
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
       //throw an error
       return res.send("Invalid credentials");
     }
-    //generate random token
+    //generate random token using uuid
+    const accessToken = uuidv4();
     res.status(200).json({
-      token: "566789466784",
-      user: users[0],
+      user: user,
+      token: accessToken,
     });
   }
 );

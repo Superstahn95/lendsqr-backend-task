@@ -3,14 +3,16 @@ import {
   fundOtherAccountService,
   fundSelfService,
 } from "../services/deposit.service";
+import { DepositRequest } from "../interfaces";
+import { AuthenticatedRequestBody } from "../interfaces/CustomTypes";
 
 export const fundOtherAccountController = (
-  req: Request,
+  req: AuthenticatedRequestBody<DepositRequest>,
   res: Response,
   next: NextFunction
 ) => {};
 export const fundSelfController = (
-  req: Request,
+  req: AuthenticatedRequestBody<DepositRequest>,
   res: Response,
   next: NextFunction
 ) => {};

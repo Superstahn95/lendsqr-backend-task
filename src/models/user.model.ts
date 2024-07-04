@@ -19,6 +19,7 @@ const createUserTable = async (knex: Knex) => {
     table.string("wallet_id").notNullable().unique();
     table.string("password").notNullable();
     table.integer("balance").defaultTo(0);
+    table.string("token");
     table.timestamps(true);
   });
 };
